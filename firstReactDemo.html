@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>A beginner's react demo</title>
+	<script src = "https://unpkg.com/react@15.3.2/dist/react.js"></script>
+	<script src = "https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+	<script src = "https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+</head>
+
+<body>
+	<div id="container"></div>
+	<script type="text/babel">
+		var MarbleCounter = React.createClass({
+		getInitialState: function(){
+			return  {
+				marbles: 0
+			};
+		},
+		timerTick: function () {
+			this.setState({
+			marbles: this.state.marbles + 5
+			});
+		},
+		componentDidMount: function(){
+			setInterval(this.timerTick, 1000);
+		},
+		render: function(){
+		var counterStyle = {
+			color: "#FF8C00",
+			fontSize: 50
+		};
+
+		var count = this.state.marbles.toLocaleString();
+		
+		return(<h1 style={counterStyle}>{count}</h1>);
+		
+		}
+		});
+
+		var MarbleCounterDisplay = React.createClass({
+		render: function(){
+
+		var commonStyle = {
+			margin: 0,
+			padding: 0
+		}
+
+		var divStyle = {
+		width: 250,
+		textAlign: "center",
+		backgroundColor: "black",
+		padding: 40,
+		fontFamily: "Impact",
+		color: "#999",
+		borderRadius: 10
+		};
+
+		var textStyles = {
+			first: {				 
+				...commonStyle
+			},
+			second: {
+				fontSize: 36,
+				...commonStyle
+			},
+			third: {
+				fontSize: 17,
+				opacity: 0.5,
+				...commonStyle
+			}
+		}
+
+		return(
+			<div style = {divStyle}>
+				<MarbleCounter/>
+				<h2 style={textStyles.second}>Marbles produced</h2>
+				<h2 style={textStyles.first}>at the React Marble Factory</h2>
+				<p style={textStyles.third}>since the page loaded!!</p>
+				<p style={textStyles.third}>(refresh page to restart production count)</p>
+			</div>
+				
+		);
+
+		}
+		});
+
+		ReactDOM.render(
+			<MarbleCounterDisplay/>,
+			document.querySelector("#container")
+		);
+
+	</script>
+
+	</body>
+
+	</html>	
